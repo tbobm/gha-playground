@@ -1,0 +1,38 @@
+---
+name: "Github Actions Job outputs"
+
+on:
+  push:
+    branches: ['*']
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    outputs:
+      version: steps.vars.outputs.version
+    steps:
+      - name: Set the output
+        id: vars
+        run: |
+          echo "::set-output name=version::$(echo 1.2.3)"
+  job2:
+    runs-on: ubuntu-latest
+    if: needs.job1.outputs.version == "1.2.3"
+    needs:
+      - job1
+    steps:
+      - name: "Display the output"
+        run: |
+          echo ${{ needs.job1.outputs.version }}
+  job3:
+    runs-on: ubuntu-latest
+    if: needs.job1.outputs.version == "latest"
+    needs:
+      - job1
+
+    steps:
+      - name: "Debug ${{ needs.job1.outputs.version }}"
+        env:
+          VERSION: ${{ needs.job1.outputs.version }}
+        run: |
+          echo $VERSION
