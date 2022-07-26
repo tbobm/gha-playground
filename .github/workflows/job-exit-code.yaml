@@ -1,7 +1,8 @@
 ---
 name: "Job status codes"
 
-on:
+'on':
+  workflow_dispatch:
   push:
     branches: ['*']
 
