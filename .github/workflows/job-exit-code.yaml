@@ -24,3 +24,13 @@ jobs:
         run: |
           echo "Running exit 1"
           exit 1
+
+  variabilized-failed-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Exit failure
+        id: vars
+        run: |
+          a=$(echo 5)
+          echo "Running exit 5"
+          exit $a
