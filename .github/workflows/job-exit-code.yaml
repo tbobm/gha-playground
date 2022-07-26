@@ -1,0 +1,25 @@
+---
+name: "Job status codes"
+
+on:
+  push:
+    branches: ['*']
+
+jobs:
+  success-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Exit success
+        id: vars
+        run: |
+          echo "Running exit 0"
+          exit 0
+
+  fail-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Exit failure
+        id: vars
+        run: |
+          echo "Running exit 1"
+          exit 1
