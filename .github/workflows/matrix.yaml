@@ -1,0 +1,26 @@
+---
+name: "Test matrix usage"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  manual:
+    name: "Test matrix"
+    runs-on: "ubuntu-latest"
+    strategy:
+      matrix:
+        target:
+          - name: "target A"
+            variable_custom: ${{ vars.MY_VAR_A }}
+          - name: "target B"
+            variable_custom: ${{ vars.MY_VAR_B }}
+    steps:
+    - name: debug variable ${{ matrix.name }} ${{ matrix.target.variable_custom }}
+      env:
+        target_name: ${{ matrix.target.name }}
+        variable_custom: ${{ matrix.target.variable_custom }}
+      run: |
+        echo $target_name $variable_custom and ${{ matrix.target.variable_custom }}
